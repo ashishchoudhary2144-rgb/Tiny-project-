@@ -1,0 +1,869 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={project1},
+  pdfauthor={Ashish},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{project1}
+\author{Ashish}
+\date{2026-09-02}
+
+\begin{document}
+\maketitle
+
+\subsection{R Markdown}\label{r-markdown}
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+When you click the \textbf{Knit} button a document will be generated
+that includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{gital}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{OneDrive}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Desktop}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{as.csv"}\NormalTok{) }
+\NormalTok{student\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     fdc_id      data_type
+## 1   167512 sr_legacy_food
+## 2   167513 sr_legacy_food
+## 3   167514 sr_legacy_food
+## 4   167515 sr_legacy_food
+## 5   167516 sr_legacy_food
+## 6   167517 sr_legacy_food
+## 7   167518 sr_legacy_food
+## 8   167519 sr_legacy_food
+## 9   167520 sr_legacy_food
+## 10  167521 sr_legacy_food
+## 11  167522 sr_legacy_food
+## 12  167523 sr_legacy_food
+## 13  167524 sr_legacy_food
+## 14  167525 sr_legacy_food
+## 15  167526 sr_legacy_food
+## 16  167527 sr_legacy_food
+## 17  167528 sr_legacy_food
+## 18  167529 sr_legacy_food
+## 19  167530 sr_legacy_food
+## 20  167531 sr_legacy_food
+## 21  167532 sr_legacy_food
+## 22  167533 sr_legacy_food
+## 23  167534 sr_legacy_food
+## 24  167535 sr_legacy_food
+## 25  167536 sr_legacy_food
+## 26  167537 sr_legacy_food
+## 27  167538 sr_legacy_food
+## 28  167539 sr_legacy_food
+## 29  167540 sr_legacy_food
+## 30  167541 sr_legacy_food
+## 31  167542 sr_legacy_food
+## 32  167543 sr_legacy_food
+## 33  167544 sr_legacy_food
+## 34  167545 sr_legacy_food
+## 35  167546 sr_legacy_food
+## 36  167547 sr_legacy_food
+## 37  167548 sr_legacy_food
+## 38  167549 sr_legacy_food
+## 39  167550 sr_legacy_food
+## 40  167551 sr_legacy_food
+## 41  167552 sr_legacy_food
+## 42  167553 sr_legacy_food
+## 43  167554 sr_legacy_food
+## 44  167555 sr_legacy_food
+## 45  167556 sr_legacy_food
+## 46  167557 sr_legacy_food
+## 47  167558 sr_legacy_food
+## 48  167559 sr_legacy_food
+## 49  167560 sr_legacy_food
+## 50  167561 sr_legacy_food
+## 51  167562 sr_legacy_food
+## 52  167563 sr_legacy_food
+## 53  167564 sr_legacy_food
+## 54  167565 sr_legacy_food
+## 55  167566 sr_legacy_food
+## 56  167567 sr_legacy_food
+## 57  167568 sr_legacy_food
+## 58  167569 sr_legacy_food
+## 59  167570 sr_legacy_food
+## 60  167571 sr_legacy_food
+## 61  167572 sr_legacy_food
+## 62  167573 sr_legacy_food
+## 63  167574 sr_legacy_food
+## 64  167575 sr_legacy_food
+## 65  167576 sr_legacy_food
+## 66  167577 sr_legacy_food
+## 67  167578 sr_legacy_food
+## 68  167579 sr_legacy_food
+## 69  167580 sr_legacy_food
+## 70  167581 sr_legacy_food
+## 71  167582 sr_legacy_food
+## 72  167583 sr_legacy_food
+## 73  167584 sr_legacy_food
+## 74  167585 sr_legacy_food
+## 75  167586 sr_legacy_food
+## 76  167587 sr_legacy_food
+## 77  167588 sr_legacy_food
+## 78  167589 sr_legacy_food
+## 79  167590 sr_legacy_food
+## 80  167591 sr_legacy_food
+## 81  167592 sr_legacy_food
+## 82  167593 sr_legacy_food
+## 83  167594 sr_legacy_food
+## 84  167595 sr_legacy_food
+## 85  167596 sr_legacy_food
+## 86  167597 sr_legacy_food
+## 87  167598 sr_legacy_food
+## 88  167599 sr_legacy_food
+## 89  167600 sr_legacy_food
+## 90  167601 sr_legacy_food
+## 91  167602 sr_legacy_food
+## 92  167603 sr_legacy_food
+## 93  167604 sr_legacy_food
+## 94  167605 sr_legacy_food
+## 95  167606 sr_legacy_food
+## 96  167607 sr_legacy_food
+## 97  167608 sr_legacy_food
+## 98  167609 sr_legacy_food
+## 99  167610 sr_legacy_food
+## 100 167611 sr_legacy_food
+## 101 167612 sr_legacy_food
+## 102 167613 sr_legacy_food
+## 103 167614 sr_legacy_food
+## 104 167615 sr_legacy_food
+## 105 167616 sr_legacy_food
+## 106 167617 sr_legacy_food
+## 107 167618 sr_legacy_food
+## 108 167619 sr_legacy_food
+## 109 167620 sr_legacy_food
+## 110 167621 sr_legacy_food
+## 111 167622 sr_legacy_food
+## 112 167623 sr_legacy_food
+## 113 167624 sr_legacy_food
+## 114 167625 sr_legacy_food
+## 115 167626 sr_legacy_food
+## 116 167627 sr_legacy_food
+## 117 167628 sr_legacy_food
+## 118 167629 sr_legacy_food
+## 119 167630 sr_legacy_food
+## 120 167631 sr_legacy_food
+## 121 167632 sr_legacy_food
+## 122 167633 sr_legacy_food
+## 123 167634 sr_legacy_food
+## 124 167635 sr_legacy_food
+## 125 167636 sr_legacy_food
+## 126 167637 sr_legacy_food
+## 127 167638 sr_legacy_food
+## 128 167639 sr_legacy_food
+## 129 167640 sr_legacy_food
+## 130 167641 sr_legacy_food
+## 131 167642 sr_legacy_food
+## 132 167643 sr_legacy_food
+## 133 167644 sr_legacy_food
+## 134 167645 sr_legacy_food
+## 135 167646 sr_legacy_food
+## 136 167647 sr_legacy_food
+## 137 167648 sr_legacy_food
+## 138 167649 sr_legacy_food
+## 139 167650 sr_legacy_food
+## 140 167651 sr_legacy_food
+## 141 167652 sr_legacy_food
+## 142 167653 sr_legacy_food
+## 143 167654 sr_legacy_food
+## 144 167655 sr_legacy_food
+## 145 167656 sr_legacy_food
+## 146 167657 sr_legacy_food
+## 147 167658 sr_legacy_food
+## 148 167659 sr_legacy_food
+## 149 167660 sr_legacy_food
+## 150 167661 sr_legacy_food
+## 151 167662 sr_legacy_food
+## 152 167663 sr_legacy_food
+## 153 167664 sr_legacy_food
+## 154 167665 sr_legacy_food
+## 155 167666 sr_legacy_food
+## 156 167667 sr_legacy_food
+## 157 167668 sr_legacy_food
+## 158 167669 sr_legacy_food
+## 159 167670 sr_legacy_food
+## 160 167671 sr_legacy_food
+## 161 167672 sr_legacy_food
+##                                                                           description
+## 1   Pillsbury Golden Layer Buttermilk Biscuits, Artificial Flavor, refrigerated dough
+## 2                            Pillsbury, Cinnamon Rolls with Icing, refrigerated dough
+## 3                    Kraft Foods, Shake N Bake Original Recipe, Coating for Pork, dry
+## 4                                      George Weston Bakeries, Thomas English Muffins
+## 5                                          Waffles, buttermilk, frozen, ready-to-heat
+## 6                                  Waffle, buttermilk, frozen, ready-to-heat, toasted
+## 7                               Waffle, buttermilk, frozen, ready-to-heat, microwaved
+## 8                                     Waffle, plain, frozen, ready-to-heat, microwave
+## 9                                 Pie Crust, Cookie-type, Graham Cracker, Ready Crust
+## 10                                     Pie Crust, Cookie-type, Chocolate, Ready Crust
+## 11                                            Pie, Dutch Apple, Commercially Prepared
+## 12                    Pie crust, deep dish, frozen, unbaked, made with enriched flour
+## 13                                     Waffles, chocolate chip, frozen, ready-to-heat
+## 14                                                               Tostada shells, corn
+## 15                            Bread, salvadoran sweet cheese (quesadilla salvadorena)
+## 16                                    Bread, pound cake type, pan de torta salvadoran
+## 17                                       Pastry, Pastelitos de Guava (guava pastries)
+## 18                                                     Crackers, snack, Goya Crackers
+## 19                                                   Crackers, cream, Gamesa Sabrosas
+## 20                                   Crackers, cream, La Moderna Rikis Cream Crackers
+## 21                                                                 Bread, white wheat
+## 22                                                                      Bagels, wheat
+## 23                                  Cream puff, eclair, custard or cream filled, iced
+## 24                              Tortillas, ready-to-bake or -fry, flour, shelf stable
+## 25                                             Snacks, beef jerky, chopped and formed
+## 26                                         Snacks, corn-based, extruded, chips, plain
+## 27                               Snacks, corn-based, extruded, chips, barbecue-flavor
+## 28                                         Snacks, corn-based, extruded, cones, plain
+## 29                                                      Snacks, fruit leather, pieces
+## 30                                                       Snacks, fruit leather, rolls
+## 31                                                  Snacks, granola bars, hard, plain
+## 32                                                 Snacks, granola bars, hard, almond
+## 33                                       Snacks, granola bars, soft, uncoated, raisin
+## 34         Snacks, granola bars, soft, coated, milk chocolate coating, chocolate chip
+## 35                                          Candies, honey-combed, with peanut butter
+## 36          Snacks, granola bars, soft, coated, milk chocolate coating, peanut butter
+## 37             Snacks, granola bars, soft, uncoated, peanut butter and chocolate chip
+## 38               Snacks, popcorn, oil-popped, microwave, regular flavor, no trans fat
+## 39                                                             Snacks, popcorn, cakes
+## 40                                      Snacks, popcorn, caramel-coated, with peanuts
+## 41                                   Snacks, popcorn, caramel-coated, without peanuts
+## 42                        Snacks, potato chips, made from dried potatoes, reduced fat
+## 43        Snacks, potato chips, made from dried potatoes, sour-cream and onion-flavor
+## 44                                              Snacks, pretzels, hard, plain, salted
+## 45                   Snacks, pretzels, hard, confectioner's coating, chocolate-flavor
+## 46                                        Snacks, rice cakes, brown rice, sesame seed
+## 47                                  Snacks, tortilla chips, plain, white corn, salted
+## 48                                               Snacks, tortilla chips, nacho cheese
+## 49                                               Snacks, tortilla chips, ranch-flavor
+## 50                                                         Snacks, trail mix, regular
+## 51                                                      Candies, ALMOND JOY Candy Bar
+## 52                                                    Candies, TWIZZLERS CHERRY BITES
+## 53                                          Candies, NESTLE, BIT-O'-HONEY Candy Chews
+## 54                                                  Candies, NESTLE, BUTTERFINGER Bar
+## 55                                           Candies, caramels, chocolate-flavor roll
+## 56                                              Baking chocolate, unsweetened, liquid
+## 57                                             Baking chocolate, unsweetened, squares
+## 58                                            Candies, confectioner's coating, yogurt
+## 59                                     Candies, confectioner's coating, peanut butter
+## 60                                                           Candies, white chocolate
+## 61                                                         Ice creams, vanilla, light
+## 62                                                          Ice creams, vanilla, rich
+## 63                              Desserts, flan, caramel custard, prepared-from-recipe
+## 64                                                                Ice creams, vanilla
+## 65                                             Ice creams, vanilla, light, soft-serve
+## 66                                                                    Sherbet, orange
+## 67                                Candies, fudge, peanut butter, prepared-from-recipe
+## 68                                      Candies, fudge, vanilla, prepared-from-recipe
+## 69                                                  Candies, fudge, vanilla with nuts
+## 70                                 Candies, NESTLE, GOOBERS Chocolate Covered Peanuts
+## 71                                                     Candies, NESTLE, BABY RUTH Bar
+## 72                                         Candies, TWIZZLERS Strawberry Twists Candy
+## 73                                         Syrups, table blends, pancake, with butter
+## 74                                                       Ice creams, chocolate, light
+## 75                                                        Candies, NESTLE, CHUNKY Bar
+## 76                                                            Candies, milk chocolate
+## 77                          Puddings, banana, dry mix, instant, prepared with 2% milk
+## 78                          Puddings, banana, dry mix, regular, prepared with 2% milk
+## 79                                             Andrea's, Gluten Free Soft Dinner Roll
+## 80                      Crunchmaster, Multi-Grain Crisps, Snack Crackers, Gluten-Free
+## 81                              Glutino, Gluten Free Cookies, Chocolate Vanilla Creme
+## 82                                        Glutino, Gluten Free Cookies, Vanilla Creme
+## 83                          Pepperidge Farm, Goldfish, Baked Snack Crackers, Original
+## 84                          Pepperidge Farm, Goldfish, Baked Snack Crackers, Parmesan
+## 85                             Pepperidge Farm, Goldfish, Baked Snack Crackers, Pizza
+## 86                                Rudi's, Gluten-Free Bakery, Original Sandwich Bread
+## 87                          Udi's, Gluten Free, Soft & Delicious White Sandwich Bread
+## 88                                Udi's, Gluten Free, Soft & Hearty Whole Grain Bread
+## 89                                       Udi's, Gluten Free, Whole Grain Dinner Rolls
+## 90                                      Van's, Gluten Free, Totally Original Pancakes
+## 91                                    Seaweed, Canadian Cultivated EMI-TSUNOMATA, dry
+## 92                             Seaweed, Canadian Cultivated EMI-TSUNOMATA, rehydrated
+## 93                                     Potatoes, hash brown, refrigerated, unprepared
+## 94              Potatoes, hash brown, refrigerated, prepared, pan-fried in canola oil
+## 95         Sweet Potatoes, french fried, frozen as packaged, salt added in processing
+## 96                                                   Moose, meat, raw (Alaska Native)
+## 97                                                   Mashu roots, raw (Alaska Native)
+## 98                                              Moose, liver, braised (Alaska Native)
+## 99                                  Seal, bearded (Oogruk), meat, raw (Alaska Native)
+## 100                                        Oil, bearded seal (Oogruk) (Alaska Native)
+## 101                                    Oopah (tunicate), whole animal (Alaska Native)
+## 102                                           Owl, horned, flesh, raw (Alaska Native)
+## 103                    Fish, salmon, king, chinook, smoked and canned (Alaska Native)
+## 104                       Fish, salmon, king, chinook, smoked, brined (Alaska Native)
+## 105                                Fish, salmon, king, chinook, liver (Alaska Native)
+## 106                                  Duck, scoter, white-winged, meat (Alaska Native)
+## 107                                                Sea cucumber, yane (Alaska Native)
+## 108                                            Squirrel, ground, meat (Alaska Native)
+## 109                       Tea, tundra, herb and laborador combination (Alaska Native)
+## 110                                               Walrus, meat, dried (Alaska Native)
+## 111                                        Deer (venison), sitka, raw (Alaska Native)
+## 112                        Whale, bowhead, subcutaneous fat (blubber) (Alaska Native)
+## 113                Whale, bowhead, skin and subcutaneous fat (muktuk) (Alaska Native)
+## 114                                               Oil, whale, bowhead (Alaska Native)
+## 115                                     Fish, whitefish, broad, liver (Alaska Native)
+## 116                                                 Mush, blue corn with ash (Navajo)
+## 117                                                           Cornmeal, blue (Navajo)
+## 118                                                            Melon, banana (Navajo)
+## 119                                            Chilchen (Red Berry Beverage) (Navajo)
+## 120                                                              Corn, dried (Navajo)
+## 121                                           Squash, Indian, cooked, boiled (Navajo)
+## 122                                                        Bread, kneel down (Navajo)
+## 123                                                  Mutton, cooked, roasted (Navajo)
+## 124                                                 Frybread, made with lard (Navajo)
+## 125                                                                  Tamales (Navajo)
+## 126                                                       Stew, steamed corn (Navajo)
+## 127                                     Fish, halibut, raw, with skin (Alaska Native)
+## 128                                  Fish, salmon, coho (silver), raw (Alaska Native)
+## 129                                            Blueberries, wild, raw (Alaska Native)
+## 130                                                 Oil, spotted seal (Alaska Native)
+## 131                          Fish, salmon, red, canned, bones removed (Alaska Native)
+## 132                                             Fish, whitefish, eggs (Alaska Native)
+## 133                                    Caribou, rump meat, half dried (Alaska Native)
+## 134                      Fish, salmon, red, (sockeye), canned, smoked (Alaska Native)
+## 135                            Fish, salmon, red, (sockeye), kippered (Alaska Native)
+## 136                          Fish, salmon, king, with skin, kippered, (Alaska Native)
+## 137                                               Fish, sheefish, raw (Alaska Native)
+## 138                      Buffalo, free range, top round steak, raw (Shoshone Bannock)
+## 139                     Seal, bearded (Oogruk), meat, partially dried (Alaska Native)
+## 140                   Buffalo, free range, top round steak, cooked (Shoshone Bannock)
+## 141                      Elk, free range, roast, eye of round, raw (Shoshone Bannock)
+## 142                                     Corn, dried, yellow (Northern Plains Indians)
+## 143                                                      Smelt, dried (Alaska Native)
+## 144                                                 Frybread, made with lard (Apache)
+## 145                                     Corned beef and potatoes in tortilla (Apache)
+## 146                     ON THE BORDER, soft taco with ground beef, cheese and lettuce
+## 147               Restaurant, Mexican, soft taco with ground beef, cheese and lettuce
+## 148                            Restaurant, Latino, chicken and rice, entree, prepared
+## 149                                     Restaurant, Latino, empanadas, beef, prepared
+## 150                          Restaurant, Latino, pupusas con frijoles (pupusas, bean)
+## 151                           Restaurant, Latino, pupusas con queso (pupusas, cheese)
+## 152                             Restaurant, Latino, pupusas del cerdo (pupusas, pork)
+## 153                                                  Restaurant, Latino, tamale, corn
+## 154                                                 Restaurant, Mexican, spanish rice
+## 155                                                Restaurant, Mexican, refried beans
+## 156                                          Restaurant, Chinese, egg rolls, assorted
+## 157                                     Restaurant, Chinese, fried rice, without meat
+## 158                                                       CRACKER BARREL, steak fries
+## 159                                             CRACKER BARREL, grilled sirloin steak
+## 160                         CRACKER BARREL, macaroni n' cheese plate, from kid's menu
+## 161                                                             DENNY'S, french fries
+##     food_category_id publication_date
+## 1                 18       01-04-2019
+## 2                 18       01-04-2019
+## 3                 18       01-04-2019
+## 4                 18       01-04-2019
+## 5                 18       01-04-2019
+## 6                 18       01-04-2019
+## 7                 18       01-04-2019
+## 8                 18       01-04-2019
+## 9                 18       01-04-2019
+## 10                18       01-04-2019
+## 11                18       01-04-2019
+## 12                18       01-04-2019
+## 13                18       01-04-2019
+## 14                18       01-04-2019
+## 15                18       01-04-2019
+## 16                18       01-04-2019
+## 17                18       01-04-2019
+## 18                18       01-04-2019
+## 19                18       01-04-2019
+## 20                18       01-04-2019
+## 21                18       01-04-2019
+## 22                18       01-04-2019
+## 23                18       01-04-2019
+## 24                18       01-04-2019
+## 25                23       01-04-2019
+## 26                23       01-04-2019
+## 27                23       01-04-2019
+## 28                23       01-04-2019
+## 29                19       01-04-2019
+## 30                19       01-04-2019
+## 31                23       01-04-2019
+## 32                23       01-04-2019
+## 33                23       01-04-2019
+## 34                23       01-04-2019
+## 35                19       01-04-2019
+## 36                23       01-04-2019
+## 37                23       01-04-2019
+## 38                23       01-04-2019
+## 39                23       01-04-2019
+## 40                23       01-04-2019
+## 41                23       01-04-2019
+## 42                23       01-04-2019
+## 43                23       01-04-2019
+## 44                23       01-04-2019
+## 45                23       01-04-2019
+## 46                23       01-04-2019
+## 47                23       01-04-2019
+## 48                23       01-04-2019
+## 49                23       01-04-2019
+## 50                23       01-04-2019
+## 51                19       01-04-2019
+## 52                19       01-04-2019
+## 53                19       01-04-2019
+## 54                19       01-04-2019
+## 55                19       01-04-2019
+## 56                19       01-04-2019
+## 57                19       01-04-2019
+## 58                19       01-04-2019
+## 59                19       01-04-2019
+## 60                19       01-04-2019
+## 61                19       01-04-2019
+## 62                19       01-04-2019
+## 63                19       01-04-2019
+## 64                19       01-04-2019
+## 65                19       01-04-2019
+## 66                19       01-04-2019
+## 67                19       01-04-2019
+## 68                19       01-04-2019
+## 69                19       01-04-2019
+## 70                19       01-04-2019
+## 71                19       01-04-2019
+## 72                19       01-04-2019
+## 73                19       01-04-2019
+## 74                19       01-04-2019
+## 75                19       01-04-2019
+## 76                19       01-04-2019
+## 77                19       01-04-2019
+## 78                19       01-04-2019
+## 79                18       01-04-2019
+## 80                18       01-04-2019
+## 81                18       01-04-2019
+## 82                18       01-04-2019
+## 83                18       01-04-2019
+## 84                18       01-04-2019
+## 85                18       01-04-2019
+## 86                18       01-04-2019
+## 87                18       01-04-2019
+## 88                18       01-04-2019
+## 89                18       01-04-2019
+## 90                18       01-04-2019
+## 91                11       01-04-2019
+## 92                11       01-04-2019
+## 93                11       01-04-2019
+## 94                11       01-04-2019
+## 95                11       01-04-2019
+## 96                24       01-04-2019
+## 97                24       01-04-2019
+## 98                24       01-04-2019
+## 99                24       01-04-2019
+## 100               24       01-04-2019
+## 101               24       01-04-2019
+## 102               24       01-04-2019
+## 103               24       01-04-2019
+## 104               24       01-04-2019
+## 105               24       01-04-2019
+## 106               24       01-04-2019
+## 107               24       01-04-2019
+## 108               24       01-04-2019
+## 109               24       01-04-2019
+## 110               24       01-04-2019
+## 111               24       01-04-2019
+## 112               24       01-04-2019
+## 113               24       01-04-2019
+## 114               24       01-04-2019
+## 115               24       01-04-2019
+## 116               24       01-04-2019
+## 117               24       01-04-2019
+## 118               24       01-04-2019
+## 119               24       01-04-2019
+## 120               24       01-04-2019
+## 121               24       01-04-2019
+## 122               24       01-04-2019
+## 123               24       01-04-2019
+## 124               24       01-04-2019
+## 125               24       01-04-2019
+## 126               24       01-04-2019
+## 127               24       01-04-2019
+## 128               24       01-04-2019
+## 129               24       01-04-2019
+## 130               24       01-04-2019
+## 131               24       01-04-2019
+## 132               24       01-04-2019
+## 133               24       01-04-2019
+## 134               24       01-04-2019
+## 135               24       01-04-2019
+## 136               24       01-04-2019
+## 137               24       01-04-2019
+## 138               24       01-04-2019
+## 139               24       01-04-2019
+## 140               24       01-04-2019
+## 141               24       01-04-2019
+## 142               24       01-04-2019
+## 143               24       01-04-2019
+## 144               24       01-04-2019
+## 145               24       01-04-2019
+## 146               25       01-04-2019
+## 147               25       01-04-2019
+## 148               25       01-04-2019
+## 149               25       01-04-2019
+## 150               25       01-04-2019
+## 151               25       01-04-2019
+## 152               25       01-04-2019
+## 153               25       01-04-2019
+## 154               25       01-04-2019
+## 155               25       01-04-2019
+## 156               25       01-04-2019
+## 157               25       01-04-2019
+## 158               25       01-04-2019
+## 159               25       01-04-2019
+## 160               25       01-04-2019
+## 161               25       01-04-2019
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(student\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   fdc_id      data_type
+## 1 167512 sr_legacy_food
+## 2 167513 sr_legacy_food
+## 3 167514 sr_legacy_food
+## 4 167515 sr_legacy_food
+## 5 167516 sr_legacy_food
+## 6 167517 sr_legacy_food
+##                                                                         description
+## 1 Pillsbury Golden Layer Buttermilk Biscuits, Artificial Flavor, refrigerated dough
+## 2                          Pillsbury, Cinnamon Rolls with Icing, refrigerated dough
+## 3                  Kraft Foods, Shake N Bake Original Recipe, Coating for Pork, dry
+## 4                                    George Weston Bakeries, Thomas English Muffins
+## 5                                        Waffles, buttermilk, frozen, ready-to-heat
+## 6                                Waffle, buttermilk, frozen, ready-to-heat, toasted
+##   food_category_id publication_date
+## 1               18       01-04-2019
+## 2               18       01-04-2019
+## 3               18       01-04-2019
+## 4               18       01-04-2019
+## 5               18       01-04-2019
+## 6               18       01-04-2019
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(student\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      fdc_id           data_type      description  food_category_id
+##  Min.   :167512   Length   :161   Length   :161   Min.   :11.00   
+##  1st Qu.:167552   N.unique :  1   N.unique :161   1st Qu.:18.00   
+##  Median :167592   N.blank  :  0   N.blank  :  0   Median :23.00   
+##  Mean   :167592   Min.nchar: 14   Min.nchar: 13   Mean   :21.25   
+##  3rd Qu.:167632   Max.nchar: 14   Max.nchar: 81   3rd Qu.:24.00   
+##  Max.   :167672                                   Max.   :25.00   
+##   publication_date
+##  Length   :161    
+##  N.unique :  1    
+##  N.blank  :  0    
+##  Min.nchar: 10    
+##  Max.nchar: 10    
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(student\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    161 obs. of  5 variables:
+##  $ fdc_id          : int  167512 167513 167514 167515 167516 167517 167518 167519 167520 167521 ...
+##  $ data_type       : chr  "sr_legacy_food" "sr_legacy_food" "sr_legacy_food" "sr_legacy_food" ...
+##  $ description     : chr  "Pillsbury Golden Layer Buttermilk Biscuits, Artificial Flavor, refrigerated dough" "Pillsbury, Cinnamon Rolls with Icing, refrigerated dough" "Kraft Foods, Shake N Bake Original Recipe, Coating for Pork, dry" "George Weston Bakeries, Thomas English Muffins" ...
+##  $ food_category_id: int  18 18 18 18 18 18 18 18 18 18 ...
+##  $ publication_date: chr  "01-04-2019" "01-04-2019" "01-04-2019" "01-04-2019" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(student\_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           fdc_id        data_type      description food_category_id 
+##                0                0                0                0 
+## publication_date 
+##                0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(student\_data}\SpecialCharTok{$}\NormalTok{food\_category\_id)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 23
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{var}\NormalTok{(student\_data}\SpecialCharTok{$}\NormalTok{food\_category\_id)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.85039
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(student\_data}\SpecialCharTok{$}\NormalTok{food\_category\_id)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.293993
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_count }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(student\_data}\SpecialCharTok{$}\NormalTok{data\_type)}
+
+\NormalTok{data\_count}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## sr_legacy_food 
+##            161
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pie}\NormalTok{(}
+\NormalTok{  data\_count,}
+  \AttributeTok{main =} \StringTok{"Data Distribution"}\NormalTok{,}
+  \AttributeTok{labels =} \FunctionTok{paste}\NormalTok{(}
+    \FunctionTok{names}\NormalTok{(data\_count),}
+\NormalTok{    data\_count}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{practical-8,9,10--2-_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{id\_count }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(student\_data}\SpecialCharTok{$}\NormalTok{fdc\_id)}
+
+\NormalTok{id\_count}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 167512 167513 167514 167515 167516 167517 167518 167519 167520 167521 167522 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167523 167524 167525 167526 167527 167528 167529 167530 167531 167532 167533 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167534 167535 167536 167537 167538 167539 167540 167541 167542 167543 167544 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167545 167546 167547 167548 167549 167550 167551 167552 167553 167554 167555 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167556 167557 167558 167559 167560 167561 167562 167563 167564 167565 167566 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167567 167568 167569 167570 167571 167572 167573 167574 167575 167576 167577 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167578 167579 167580 167581 167582 167583 167584 167585 167586 167587 167588 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167589 167590 167591 167592 167593 167594 167595 167596 167597 167598 167599 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167600 167601 167602 167603 167604 167605 167606 167607 167608 167609 167610 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167611 167612 167613 167614 167615 167616 167617 167618 167619 167620 167621 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167622 167623 167624 167625 167626 167627 167628 167629 167630 167631 167632 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167633 167634 167635 167636 167637 167638 167639 167640 167641 167642 167643 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167644 167645 167646 167647 167648 167649 167650 167651 167652 167653 167654 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167655 167656 167657 167658 167659 167660 167661 167662 167663 167664 167665 
+##      1      1      1      1      1      1      1      1      1      1      1 
+## 167666 167667 167668 167669 167670 167671 167672 
+##      1      1      1      1      1      1      1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pie}\NormalTok{(}
+\NormalTok{  data\_count,}
+  \AttributeTok{main =} \StringTok{"food  Result Distribution"}\NormalTok{,}
+  \AttributeTok{labels =} \FunctionTok{paste}\NormalTok{(}
+    \FunctionTok{names}\NormalTok{(id\_count),}
+\NormalTok{    id\_count}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{practical-8,9,10--2-_files/figure-latex/unnamed-chunk-10-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(}
+\NormalTok{  student\_data}\SpecialCharTok{$}\NormalTok{food\_category\_id,}
+  \AttributeTok{names.arg =}\NormalTok{ student\_data}\SpecialCharTok{$}\NormalTok{description,}
+  \AttributeTok{main =} \StringTok{"food category"}\NormalTok{,}
+  \AttributeTok{xlab =} \StringTok{"Students"}\NormalTok{,}
+  \AttributeTok{ylab =} \StringTok{"Marks"}\NormalTok{,}
+  \AttributeTok{las =} \DecValTok{2}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{practical-8,9,10--2-_files/figure-latex/unnamed-chunk-11-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(}
+\NormalTok{  student\_data}\SpecialCharTok{$}\NormalTok{fdc\_id,}
+  \AttributeTok{names.arg =}\NormalTok{ student\_data}\SpecialCharTok{$}\NormalTok{description,}
+  \AttributeTok{main =} \StringTok{"food description"}\NormalTok{,}
+  \AttributeTok{xlab =} \StringTok{"description"}\NormalTok{,}
+  \AttributeTok{ylab =} \StringTok{" id (\%)"}\NormalTok{,}
+  \AttributeTok{las =} \DecValTok{2}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{practical-8,9,10--2-_files/figure-latex/unnamed-chunk-12-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(}
+\NormalTok{  student\_data}\SpecialCharTok{$}\NormalTok{fdc\_id,}
+\NormalTok{  student\_data}\SpecialCharTok{$}\NormalTok{food\_category\_id}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5709581
+\end{verbatim}
+
+\subsection{Including Plots}\label{including-plots}
+
+You can also embed plots, for example:
+
+\pandocbounded{\includegraphics[keepaspectratio]{practical-8,9,10--2-_files/figure-latex/pressure-1.pdf}}
+
+Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
+chunk to prevent printing of the R code that generated the plot.
+
+\end{document}
